@@ -1,0 +1,11 @@
+# 빌드 결과물, 특수 폴더
+__pycache__/
+outputs/
+
+# 보안 파일 (API 키 등)
+.env
+
+# 프로젝트 설정 파일
+.vscode/
+.cursorrules
+.windsurfrules
