@@ -42,9 +42,15 @@ def main():
     setup_directories()
 
     load_dotenv()
-    api_key = os.getenv("GEMINI_API_KEY")
+    
+    # Streamlit Cloud의 Secrets에서 먼저 찾고, 없으면 로컬 환경변수(.env)에서 찾습니다.
+    try:
+        api_key = st.secrets["GEMINI_API_KEY"]
+    except KeyError:
+        api_key = os.getenv("GEMINI_API_KEY")
+        
     if not api_key:
-        st.error(".env 파일에 GEMINI_API_KEY가 설정되어 있지 않습니다.")
+        st.error("🔑 API 키를 찾을 수 없습니다! (로컬: .env 파일 확인 / 클라우드: Advanced settings -> Secrets 확인)")
         return
 
     client = genai.Client(api_key=api_key)
